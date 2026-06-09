@@ -1,0 +1,62 @@
+name: Daily Course Scanner
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Every day at 08:00 Israel time (UTC+2)
+  workflow_dispatch:      # Allow manual trigger
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore known courses cache
+        uses: actions/cache@v4
+        with:
+          path: scanner/known_courses.json
+          key: known-courses-${{ hashFiles('scanner/known_courses.json') }}
+          restore-keys: known-courses-
+
+      - name: Scan for new courses
+        id: scan
+        run: |
+          node scanner/scan.js
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Check if new courses found
+        if: steps.scan.outputs.exit_code == '1'
+        run: |
+          echo "NEW COURSES DETECTED"
+          cat scanner/new_courses.json
+
+      - name: Send email notification
+        if: steps.scan.outputs.exit_code == '1'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "CBC - קורסים חדשים זוהו!"
+          to: lilachbenvalid@gmail.com
+          from: CBC Marketing Agent
+          body: |
+            נמצאו קורסים חדשים באתר CBC:
+
+            ${{ toJSON(steps.scan.outputs) }}
+
+            כנסי ל-GitHub Actions לראות את הפרטים ולהפעיל את הפייפליין השיווקי.
+
+      - name: Save updated known courses
+        if: steps.scan.outputs.exit_code == '1'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update known courses"
+          file_pattern: "scanner/known_courses.json"
