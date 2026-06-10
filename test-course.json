@@ -1,0 +1,13 @@
+{
+  "title": "קורס מאסטרים בבינה מלאכותית",
+  "subtitle": "היתרון התחרותי שלכם מתחיל כאן",
+  "date": "01.06.26",
+  "time": "17:00-20:00",
+  "sessions": "6",
+  "hours": "24",
+  "location": "היברידי",
+  "promo": "50% הנחה",
+  "promoDeadline": "15.06",
+  "audience": "מנהלים, עצמאים, עובדים",
+  "topics": ["Prompt Engineering", "יצירת תמונות עם AI", "אוטומציה של תהליכים", "ChatGPT ו-Claude"]
+}
