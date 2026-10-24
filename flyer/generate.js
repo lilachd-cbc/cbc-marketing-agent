@@ -43,7 +43,7 @@ async function generateFlyer(course, outputPath, options = {}) {
       const footer = document.querySelector('footer');
       const last = main.lastElementChild;
       if (last.getBoundingClientRect().bottom > footer.getBoundingClientRect().top - 8 ||
-          Array.from(document.querySelectorAll('main *')).some(el => el.scrollWidth > el.clientWidth + 1)) {
+          Array.from(document.querySelectorAll('header *, main *, footer *')).some(el => el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 1)) {
         throw new Error('Content does not fit this format. Shorten the title, subtitle or topics.');
       }
     });

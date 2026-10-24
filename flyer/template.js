@@ -33,6 +33,7 @@ header{min-height:88px;display:flex;justify-content:space-between;align-items:ce
 .logo-slot img{width:100%;height:100%;object-fit:contain;object-position:right center}
 .label{font-size:15px;font-weight:700;letter-spacing:.2px;border-bottom:3px solid ${theme.accent};padding-bottom:8px}
 main{display:flex;flex-direction:column;gap:22px;flex:1;min-height:0}
+main>*{flex-shrink:0}
 .hero-title{font-size:66px;line-height:1.16;font-weight:900;letter-spacing:-1.5px;overflow-wrap:anywhere;max-width:100%}
 .hero-title .accent{background:${theme.accent};color:${theme.promoTextColor};padding:0 8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .hero-sub{font-size:24px;line-height:1.5;margin-top:18px;max-width:94%}
