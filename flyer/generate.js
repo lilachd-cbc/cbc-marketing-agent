@@ -3,7 +3,7 @@ const fs = require('fs');
 const { detectTheme } = require('./themes');
 const { buildFlyerHTML } = require('./template');
 const { getFormat } = require('./formats');
-const DEFAULT_LOGO = path.join(__dirname, 'assets', 'cbc-logo.png');
+const DEFAULT_LOGO = path.join(__dirname, 'assets', 'cbc-logo.jpg');
 
 function loadLogo(logoPath) {
   const selected = logoPath ? path.resolve(logoPath) : DEFAULT_LOGO;
