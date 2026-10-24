@@ -19,7 +19,7 @@ const THEMES = {
     ctaBg: '#0a0a2a',
     promoTextColor: '#000',
     accentDark: true,
-    keywords: ['AI', 'בינה מלאכותית', 'מאסטרים', 'אוטומציה', 'ChatGPT', 'וידאו AI', 'סרטון'],
+    keywords: ['AI', 'בינה מלאכותית', 'מאסטרים', 'אוטומציה', 'אוטומציות', 'ChatGPT', 'וידאו AI', 'סרטון'],
   },
   logistics: {
     name: 'לוגיסטיקה ומחסן',
@@ -30,7 +30,7 @@ const THEMES = {
     ctaBg: '#1a2a3a',
     promoTextColor: '#000',
     accentDark: true,
-    keywords: ['לוגיסטיקה', 'מחסן', 'שרשרת אספקה', 'מלאי', 'רכש'],
+    keywords: ['לוגיסטיקה', 'מחסן', 'מחסנים', 'שרשרת אספקה', 'מלאי', 'רכש'],
   },
   trade: {
     name: 'סחר בינלאומי',
@@ -70,7 +70,7 @@ const THEMES = {
 const DEFAULT_THEME = THEMES.management;
 
 function detectTheme(courseTitle) {
-  const lower = courseTitle.toLowerCase();
+  const lower = String(courseTitle ?? "").toLowerCase();
   for (const theme of Object.values(THEMES)) {
     if (theme.keywords.some(kw => lower.includes(kw.toLowerCase()))) {
       return theme;
@@ -80,3 +80,4 @@ function detectTheme(courseTitle) {
 }
 
 module.exports = { THEMES, detectTheme };
+
